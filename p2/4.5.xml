@@ -1,0 +1,57 @@
+# 01.
+
+import xml.etree.ElementTree as ET
+root = ET.Element("tag1")
+
+tag2 = ET.SubElement(root, "tag2")
+tag2.text = "Animal"
+
+tag3 = ET.SubElement(root, "tag3")
+tag3.text = "Domestic"
+
+tag4 = ET.SubElement(root, "tag4")
+tag4_1 = ET.SubElement(tag4, "tag4.1")
+tag4_1.text = "Cat"
+
+tag4_2 = ET.SubElement(tag4, "tag4.2")
+tag4_2.text = "Persian"
+
+tag5 = ET.SubElement(root, "tag5")
+tag5.text = "Iran"
+
+tag6 = ET.SubElement(root, "tag6")
+tag6.text = "Male"
+
+tag7 = ET.SubElement(root, "tag7")
+tag7.text = "2021.05.04"
+
+
+ET.dump(root)
+
+
+
+# 02.
+
+import xml.etree.ElementTree as ET
+vehicle_xml_data_as_string = "<motorvehicles><vehicle><registration_no>CBB1456</registration_no><make>Toyota</make><model>Premio</model></vehicle><vehicle><registration_no>PR2245</registration_no><make>Mazda</make><model>Bongo</model></vehicle><vehicle><registration_no>DE2115</registration_no><make>TATA</make><model>Sumo</model></vehicle><vehicle><registration_no>CAR7785</registration_no><make>Kia</make><model>Optima</model></vehicle></motorvehicles>"
+root = ET.fromstring(vehicle_xml_data_as_string)
+
+# Find the vehicle with registration number DE2115 and update its details
+for vehicle in root.findall('vehicle'):
+    reg_no = vehicle.find('registration_no').text
+    if reg_no == 'DE2115':
+        vehicle.find('make').text = 'Nissan'
+        vehicle.find('model').text = 'Skyline'
+
+# Print the Registration Numbers of each Nissan vehicle
+nissan_reg_numbers = [
+    vehicle.find('registration_no').text
+    for vehicle in root.findall('vehicle')
+    if vehicle.find('make').text == 'Nissan'
+]
+
+for reg_number in nissan_reg_numbers:
+    print(reg_number)
+    
+
+
